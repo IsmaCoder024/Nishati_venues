@@ -1,0 +1,67 @@
+/* Container for all cards */
+.dashboardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 40px;
+  background: #f9f9f9;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Each card */
+.dashboardCard {
+    height: fit-content;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.dashboardCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+
+/* Card images */
+.dashboardImage {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+  align-self: center;
+}
+
+/* Title */
+.dashboardCard h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #a200ca;
+  font-weight: 500;
+}
+
+/* List inside card */
+.cardItems nav {
+  list-style: none;
+  padding: 0;
+  margin-left: 8px;
+}
+
+.cardItems{
+  display: flex;
+}
+
+.cardItems nav li {
+  margin: 6px 0;
+  font-size: 20px;
+  color: #555;
+  transition: color 0.2s ease;
+}
+
+.dashboardCard li:hover {
+  color: #007bff;
+  cursor: pointer;
+}

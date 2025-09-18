@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+
+
 use App\Models\User;
 use App\Models\Venue;
 use App\Models\Booking;
+use Laravel\Pail\ValueObjects\Origin\Console;
 
 class VenueController extends Controller
 {
@@ -46,11 +50,20 @@ class VenueController extends Controller
         //displays available venues
     public function display(){
 
-        $venues = Venue::all();
+        $venues = Venue::with('bookings')->get();
 
         return Inertia::render('User/BookingPage', [
             'venues' => $venues
         ]);
+
+    }
+
+
+        //return the intended venue clicked
+    public function clicked($venueId){
+
+        $venue = Venue::findOrFail($venueId);
+        return inertia('User/BookSection', ['venue' => $venue]);
 
     }
 
@@ -73,17 +86,45 @@ class VenueController extends Controller
                             ->with("");
         }
         else {
+
+            $time_booked = Carbon::parse($request->time_booked);
+
+            $end_time = $time_booked->copy()->addMinutes((int)$request->duration);
+
+
+            $conflict = Booking::where('venue_id', $request->venue_id)
+                            ->whereDate('date_booked', $request->date_booked)
+                            ->whereTime('time_booked','<', $end_time)
+                            ->whereTime('end_time', '>', $time_booked)
+                            ->exists();
+
+            if($conflict) {
+
+                return back()->withErrors(['venue_id' => 'This venue is booked for the selected time']);
+
+            }
+
+            else {
+
             Booking::create([
                 'venue_id' => $request->venue_id,
                 'participants' => $request->participants,
                 'subject' => $request->subject,
                 'date_booked' => $request->date_booked,
-                'time_booked' => $request->time_booked,
+                'time_booked' => $time_booked->format('H:i'),
                 'duration' => $request->duration,
+                'end_time' => $end_time->format('H:i'),
+                
             ]);
 
-            return redirect()->route('admin');
-        }
+            return redirect()->route('display');
 
+            }
+
+        }
+       
+        
+        
     }
+    
 }

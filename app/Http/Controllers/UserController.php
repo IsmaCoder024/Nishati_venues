@@ -38,7 +38,7 @@ class UserController extends Controller
 
         ]);
 
-        return redirect()->route('/login');
+        return redirect()->route('login');
 
     }
 
@@ -50,11 +50,11 @@ class UserController extends Controller
 
             if ($user->role == 'admin') {
 
-                return redirect()->route('/admin');
+                return redirect()->route('admin');
 
             } else {
 
-                return redirect()->route('/home');
+                return redirect()->route('display');
 
             }
             

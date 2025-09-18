@@ -23,7 +23,7 @@ export default function Homepage(){
                     <h1>A web application for venue booking</h1>
                     <p>Book and make a venue available for your event</p>
                     
-                    <a href={ route ="book" }>
+                    <a href={ route ="display"}>
                         <button className="cta-btn">
                             Book Now
                         </button>

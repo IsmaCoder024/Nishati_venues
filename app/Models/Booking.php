@@ -16,6 +16,7 @@ class Booking extends Model
         'date_booked',
         'time_booked',
         'duration',
+        'end_time',
     ];
 
     public function venue(){

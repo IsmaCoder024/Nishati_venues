@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VenueController;
@@ -36,11 +37,16 @@ Route::get('/home', function(){
 })->name('home');
 
 
-    //Admin routes
+    //ADMIN ROUTES
 //Admin dashboard
 Route::get('/admin', function(){
     return Inertia::render('Admin/AdminDashboard');
 })->name('admin');
+
+//Users List
+Route::get('/usersList',
+    [AdminController::class, 'usersList']
+)->name('usersList');
 
 //Add new venue
 Route::get('/new', function(){
@@ -55,13 +61,34 @@ Route::post('/new',
 Route::get('/update', function(){
     return Inertia::render('Admin/UpdateVenue');
 })->name('update');
+
 //Delete venue
 Route::get('/delete', function(){
     return Inertia::render('Admin/DeleteVenue');
 })->name('delete');
 
+//Reservations
+Route::get('/reservations',
+    [AdminController::class, 'reservations']
+)->name('reservations');
 
-    //User routes
+//handle reservation delete
+Route::delete('/reservations/{id}',
+     [AdminController::class,'handleDelete']
+)->name('reservations.delete');
+
+//reservation edit page
+Route::get('/reservations/{id}/edit',
+     [AdminController::class,'editReservation']
+)->name('reservations.edit');
+
+//handle reservation
+Route::put('/reservations/{id}',
+     [AdminController::class,'updateReservation']
+)->name('reservations.update');
+
+
+    //USER ROUTES
 //registration
 Route::get('/register', function(){
     return Inertia::render('User/RegistrationForm');
@@ -82,14 +109,19 @@ Route::post('/login',
 )->name('login');
 
 Route::middleware(['auth'])->group(function (){ 
-//booking
-Route::get('/book',
+    
+//A page with venues for booking
+Route::get('/display',
     [VenueController::class, 'display']
-)->name('book');
+)->name('display');
 
-Route::post('/book',
-    [VenueController::class, 'book']
-)->name('book');
+//Booking page
+Route::get('/book/{venue}', 
+    [VenueController::class, 'clicked'])->name('book.create');
+
+
+Route::post('/book/store', 
+    [VenueController::class, 'book'])->name('book.store');
 
 });
 

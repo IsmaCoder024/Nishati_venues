@@ -5,27 +5,27 @@ body{
     color: #333;
 }
 
-.venue-container{
+.bookings-container{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     padding: 20px;
 }
 
-.venue-card {
-    background: white;
+.booking-card {
+    background: rgb(227, 210, 226);
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(131, 3, 118, 0.5);
     transition: trasform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.venue-card:hover{
+.booking-card:hover{
     transform: translateY(-5px);
     box-shadow: 0 6px 15px rgba(131, 3, 118, 1);
 }
 
-.venue-card h2{
+.booking-card h1{
     margin: 0;
     margin-left: 20%;
     font-size: 2rem;
@@ -33,51 +33,28 @@ body{
     font-weight: 600;
 }
 
-.venue-card p{
+.booking-card p{
     font-size: 1.2rem;
     color: rgb(0, 0, 0);
+    margin: 4px;
 }
 
-.capacity{
-    color: #8c5814;
-    font-weight: 600;
-    font-size: 1.5rem;
+
+.field-display{
+    display: inline;
+    color: #711031;
+    background: #e4e4eb;
+    padding: 4px 4px;
+    border-radius: 6px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-.booked{
-    color: red;
-}
-
-.available{
-    color: green;
-}
-
-.endTime{
-    display: none;
+.buttons{
     justify-self: center;
+    margin-top: 25px;
 }
 
-.venue-card:hover .endTime{
-    display: inline;
-    color: #711031;
-    background: #e4e4eb;
-    padding: 4px 4px;
-    border-radius: 6px;
-}
-
-.venue-card:hover .notAvailable{
-    display: none;
-}
-
-.notAvailable{
-    display: inline;
-    color: #711031;
-    background: #e4e4eb;
-    padding: 4px 4px;
-    border-radius: 6px;
-}
-
-.book-btn{
+.booking-card button{
     display: inline-block;
     background: #6a1b9a;
     color: white;
@@ -85,9 +62,11 @@ body{
     border-radius: 8px;
     text-decoration: none;
     font-weight: 500;
+    margin: 4px;
     /* transition: background 0.3s ease; */
 }
 
-.book-btn:hover{
+.booking-card button:hover{
     background: #4a148c;
 }
+

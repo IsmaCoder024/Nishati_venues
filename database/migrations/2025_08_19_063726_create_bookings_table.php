@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date_booked');
             $table->time('time_booked');
             $table->integer('duration');
+            $table->time('end_time');
             $table->timestamps();
         });
     }

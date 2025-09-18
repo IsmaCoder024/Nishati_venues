@@ -1,0 +1,57 @@
+table{
+    margin: 20px;
+}
+
+th{
+    border: 2px solid #8334b4;;
+    background: yellowgreen;
+}
+
+td{
+    background:  #8334b4;
+}
+
+select{
+    border: 1px solid black;
+    height: 35px;
+    margin-left: 4px;
+    background: rgb(105, 144, 27);
+    color: white;
+    font-weight: 700;
+}
+
+.record-0{
+    color:white;
+    font-weight: 700;
+}
+
+.record-1{
+    background: yellowgreen;
+    padding: 1px 4px;
+    width: fit-content;
+    border-radius: 4px;
+    color: blue;
+}
+
+.record-2{
+    background: yellowgreen;
+    padding: 1px 4px;
+    width: fit-content;
+    border-radius: 4px;
+    color: red;
+}
+
+.record-3{
+    background: yellowgreen;
+    padding: 1px 4px;
+    width: fit-content;
+    border-radius: 4px;
+    color: blue;
+    cursor: pointer;
+}
+
+.actions{
+    display:flexbox;
+}
+
+
