@@ -12,12 +12,13 @@ body{
     padding: 20px;
 }
 
-.venue-card {
+.venue-card {  
     background: white;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(131, 3, 118, 0.5);
     transition: trasform 0.2s ease, box-shadow 0.2s ease;
+    opacity: 1;
 }
 
 .venue-card:hover{

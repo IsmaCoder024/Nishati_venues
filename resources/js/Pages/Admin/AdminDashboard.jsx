@@ -1,14 +1,29 @@
 import './AdminDashboard.css';
 import UserLayout from "../../Layouts/UserLayout.jsx";
+
 import actionImage from "../../images/action.png";
 import userImage from "../../images/user management.png";
 import reserveImage from "../../images/reserve.jpg";
 import activityImage from "../../images/activity.png";
 
+import { usePage } from "@inertiajs/react";
+
 
 export default function AdminDashboard(){
+
+    const { flash } = usePage().props;
+
     return(
         <UserLayout>
+
+            <div>
+                {flash.logSuccess && (
+                    <div className="flash-success">
+                        {flash.logSuccess}
+                    </div>
+                )}
+            </div>
+
         <div className='dashboardContainer'>
             <div className='dashboardCard'>
                 <h3>Actions</h3>

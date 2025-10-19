@@ -33,6 +33,7 @@ export default function ActiveReservations({ bookings }) {
                         <p>Duration : <span className="field-display">{booking.duration} mins</span> </p>
                         <p>Start at : <span className="field-display">{booking.time_booked}</span> </p>
                         <p>Finish at : <span className="field-display">{booking.end_time}</span> </p>
+                        <p>Booked by : <span className="field-display">{booking.user?.firstName} {booking.user?.lastName}</span> </p>
                         
                         <div className="buttons">
                             <button onClick={() => handleDelete(booking.id)}>Remove reservation</button>

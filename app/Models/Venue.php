@@ -28,12 +28,12 @@ class Venue extends Model
 
     public function getIsBookedAttribute()
     {
-        $now = Carbon::now()->format('H:i');
+        $now = Carbon::now();
 
         return $this->bookings()
-            ->whereDate('date_booked',Carbon::today())
-            ->whereTime('time_booked', '<', $now)
-            ->whereTime('end_time', '>', $now)
+            ->whereDate('date_booked',$now->toDateString())
+            ->whereTime('time_booked', '<=', $now->toTimeString())
+            ->whereTime('end_time', '>=', $now->toTimeString())
             ->exists();
     }
     

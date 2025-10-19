@@ -42,7 +42,6 @@ export default function BookSection({ venue }) {
     <UserLayout
                 items={[
                             { label: "Home", href: "home"},
-                            { label: "Logout", href: "logout"}
                         ]}
                 >
         <div className="meeting-container">

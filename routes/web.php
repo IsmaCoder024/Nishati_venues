@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RecommenderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VenueController;
 use Illuminate\Foundation\Application;
@@ -32,12 +33,15 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 
     //Homepage
-Route::get('/home', function(){
-    return Inertia::render('User/Homepage');
-})->name('home');
+Route::get('/home', 
+    [UserController::class, 'homepage']
+)->name('home');
 
 
     //ADMIN ROUTES
+
+Route::middleware(['auth', 'admin'])->group(function(){
+
 //Admin dashboard
 Route::get('/admin', function(){
     return Inertia::render('Admin/AdminDashboard');
@@ -46,7 +50,23 @@ Route::get('/admin', function(){
 //Users List
 Route::get('/usersList',
     [AdminController::class, 'usersList']
-)->name('usersList');
+)->name('usersList');  
+
+//handle user delete
+Route::delete('/usersList/{id}',
+    [AdminController::class, 'deleteUser']
+)->name('usersList.delete');
+
+//user edit page
+Route::get('/usersList/{id}/edit',
+     [AdminController::class,'editUser']
+)->name('usersList.edit');
+
+//handle user info edit
+Route::put('/usersList/{id}',
+     [AdminController::class,'updateUser']
+)->name('usersList.update');
+
 
 //Add new venue
 Route::get('/new', function(){
@@ -74,7 +94,7 @@ Route::get('/reservations',
 
 //handle reservation delete
 Route::delete('/reservations/{id}',
-     [AdminController::class,'handleDelete']
+     [AdminController::class,'deleteReservation']
 )->name('reservations.delete');
 
 //reservation edit page
@@ -82,11 +102,12 @@ Route::get('/reservations/{id}/edit',
      [AdminController::class,'editReservation']
 )->name('reservations.edit');
 
-//handle reservation
+//handle reservation edit
 Route::put('/reservations/{id}',
      [AdminController::class,'updateReservation']
 )->name('reservations.update');
 
+});
 
     //USER ROUTES
 //registration
@@ -103,10 +124,15 @@ Route::get('/login', function(){
     return Inertia::render('User/LoginForm');
 })->name('login');
 
-
 Route::post('/login',
     [UserController::class, 'login']
 )->name('login');
+
+//logout
+Route::post('/logout', 
+    [UserController::class,'logout']
+)->name('logout');
+
 
 Route::middleware(['auth'])->group(function (){ 
     
@@ -121,9 +147,14 @@ Route::get('/book/{venue}',
 
 
 Route::post('/book/store', 
-    [VenueController::class, 'book'])->name('book.store');
+    [VenueController::class, 'book']
+)->name('book.store');
 
 });
 
+//Recommendation page
+Route::get('/recommendation',
+    [RecommenderController::class, 'index']
+)->name('recommendation');
 
 // require __DIR__.'/auth.php';

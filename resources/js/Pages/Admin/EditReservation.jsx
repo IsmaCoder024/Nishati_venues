@@ -4,7 +4,7 @@ import './EditReservation.css';
 
 import { useForm } from "@inertiajs/react";
 
-export default function EditReseravtion({ booking }){
+export default function EditReservation({ booking }){
 
     const { data, setData, put, processing } = useForm({
 
@@ -98,7 +98,9 @@ export default function EditReseravtion({ booking }){
                     </label>
                     </div>
 
-                    <button type="submit" disabled={processing} className="update-btn">Update Booking</button>
+                    <button type="submit" disabled={processing} className="update-btn">
+                        { processing ? "Updating" : "Update Booking" }
+                    </button>
 
                 </form>
             </div>

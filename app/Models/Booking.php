@@ -11,6 +11,7 @@ class Booking extends Model
 
     protected $fillable = [
         'venue_id',
+        'user_id',
         'participants',
         'subject',
         'date_booked',
@@ -21,6 +22,10 @@ class Booking extends Model
 
     public function venue(){
         return $this->belongsTo(Venue::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
     public function getTimeEndAttribute()

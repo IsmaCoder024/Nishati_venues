@@ -1,29 +1,41 @@
 
+body{
+    background: rgb(191, 182, 191);
+
+}
+
+label {
+  font-size: 18px;
+  margin-bottom: 6px;
+  color: #372424;
+}
 
 small{
   font-size: 12px;
   color: red;
   font-style: italic;
-}  
+}
    
-.meeting-container {
+.edit-container {
   max-width: 600px;
   margin: 30px auto;
   background: #fff;
   padding: 20px 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 12px rgba(22, 8, 219, 10);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-.meeting-container h2 {
+.edit-container h1 {
   margin-bottom: 20px;
-  font-size: 22px;  
-  color: #333;
+  font-size: 25px;  
+  color: #6e1365;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.meeting-form {
-  display: grid;
+.edit-form {
+  display: flexbox;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
@@ -31,16 +43,16 @@ small{
 .form-group {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 
-.form-group.full-width {
-  grid-column: span 2;
+.form-date-group{
+    display: flexbox;
+    margin-bottom: 20px;
 }
 
-label {
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: #444;
+.form-date-group label{
+    margin-inline: 5px;
 }
 
 .form-group input, select, textarea {
@@ -51,9 +63,12 @@ label {
   outline: none;
 }
 
-textarea {
-  resize: vertical;
-  min-height: 80px;
+.form-date-group input{
+    padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
 }
 
 .form-check {
@@ -64,7 +79,7 @@ textarea {
   margin-top: 5px;
 }
 
-.submit-btn {
+.update-btn {
   grid-column: span 2;
   padding: 10px;
   background: #0077cc;
@@ -74,9 +89,12 @@ textarea {
   font-size: 15px;
   cursor: pointer;
   margin-top: 10px;
+  align-self: center;
   transition: background 0.2s;
 }
 
-.submit-btn:hover {
+.update-btn:hover {
   background: #005fa3;
 }
+
+

@@ -108,16 +108,16 @@ class VenueController extends Controller
 
             Booking::create([
                 'venue_id' => $request->venue_id,
+                'user_id' => auth()->id(),
                 'participants' => $request->participants,
                 'subject' => $request->subject,
                 'date_booked' => $request->date_booked,
                 'time_booked' => $time_booked->format('H:i'),
                 'duration' => $request->duration,
-                'end_time' => $end_time->format('H:i'),
-                
+                'end_time' => $end_time->format('H:i'),                    
             ]);
 
-            return redirect()->route('display');
+            return redirect()->route('display')->with('');
 
             }
 

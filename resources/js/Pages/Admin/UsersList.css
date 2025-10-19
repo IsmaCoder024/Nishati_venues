@@ -1,17 +1,26 @@
-table{
+body {
+    background: rgb(213, 209, 209);
+}
+table {
     margin: 20px;
+    width: 90%;
 }
 
-th{
-    border: 2px solid #8334b4;;
+th {
+    border: 4px solid rgb(213, 209, 209);
+    border-radius: 10px;
     background: yellowgreen;
+    text-align: center;
 }
 
-td{
-    background:  #8334b4;
+td {
+    background: #8334b4;
+    border: 3px solid rgb(213, 209, 209);
+    border-radius: 6px;
+    text-align: center;
 }
 
-select{
+select {
     border: 1px solid black;
     height: 35px;
     margin-left: 4px;
@@ -20,38 +29,75 @@ select{
     font-weight: 700;
 }
 
-.record-0{
-    color:white;
+.record-0 {
+    color: white;
     font-weight: 700;
 }
 
-.record-1{
+.record-1 {
+    font-family: "Courier New", Courier, monospace;
     background: yellowgreen;
     padding: 1px 4px;
     width: fit-content;
     border-radius: 4px;
     color: blue;
+    margin: 15px;
 }
 
-.record-2{
+.record-2 {
+    font-family: "Courier New", Courier, monospace;
     background: yellowgreen;
     padding: 1px 4px;
     width: fit-content;
     border-radius: 4px;
     color: red;
+    font-weight: 600;
+    margin: 15px;
 }
 
-.record-3{
+.record-3 {
     background: yellowgreen;
     padding: 1px 4px;
     width: fit-content;
     border-radius: 4px;
     color: blue;
     cursor: pointer;
+    margin: 10px;
 }
 
-.actions{
-    display:flexbox;
+.actions-group {
+    display: flex;
+    flex-direction: column;
 }
 
+.actions {
+    display: flex;
+    background: inherit;
+    width: fit-content;
+    align-self: center;
+}
 
+.record-3:hover {
+    background: rgb(114, 155, 33);
+    color: rgb(22, 22, 188);
+}
+
+.actions li {
+    cursor: pointer;
+    list-style: none;
+    color: #8334b4;
+    font-weight: 600;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-size: 14px;
+    margin: 4px;
+    background: rgb(213, 209, 209);
+    width: fit-content;
+    align-self: center;
+    padding: 1px 3px;
+    border-radius: 4px;
+    box-shadow: 0 1px 8px rgb(31, 2, 172);
+}
+
+.actions li:hover {
+    background: rgb(190, 186, 186);
+}

@@ -1,72 +1,115 @@
-import { router } from '@inertiajs/react';
-import './UsersList.css';
-import { useState } from 'react';
+import UserLayout from "../../Layouts/UserLayout.jsx";
+import "./UsersList.css";
 
-export default function UsersList({ users }){
+import { router } from "@inertiajs/react";
+import { useState } from "react";
 
-    const [showSection, setShowSection] = useState(null);
+export default function UsersList({ users }) {
 
-    const handleClick = (userId) => {
-        setShowSection ( prev => prev === userId ? null : venueId)
-        
+    const [ processing, setProcessing ] = useState();
+    
+    const [showSection, setShowSection] = useState();
+
+    const handleAction = (userId) => {
+        setShowSection((prev) => (prev === userId ? null : userId));
     };
 
     const handleDelete = (id) => {
-        if(connfirm('Are you sure you want to delete this user?')){
+        if (confirm("Are you sure you want to delete this user?")) {
+            setProcessing(true);
             router.delete(`/usersList/${id}`);
         }
     };
 
     const handleEdit = (id) => {
         router.get(`/usersList/${id}/edit`);
+        setProcessing(true);
     };
 
-    return(
-
-        <>
+    return (
+        <UserLayout>
+            <div className="flash-success">
+                { processing ?
+                    "Retrieving.."
+                : "" 
+                }
+            </div>
             <section className="venue-container">
+                <table>
+                    <tr>
+                        <th>id</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Cheque number</th>
+                        <th>Number of bookings made</th>
+                        <th>Actions</th>
+                    </tr>
 
-                        <table>
-                            <tr>
-                                <th>id</th>
-                                <th>First name</th>
-                                <th>Last name</th>
-                                <th>Cheque number</th>
-                                <th>Number of bookings</th>
-                                <th>Actions</th>
-                            </tr>
-                            
-                            {users.map((user) => (
-
-                            <tr key={user.id} className="">
-                                <td><span className='record-0'>{user.id}</span></td>
-                                <td><span className='record-1'>{user.firstName}</span></td>
-                                <td><span className='record-1'>{user.lastName}</span></td>
-                                <td><span className='record-2'>{user.chequeNo}</span></td>
-                                <td></td>
-                                <td>
-                                    <span className='record-3'>
-                                        <button onClick={ () => handleClick = (user.id) }>Action</button>
+                    {users.map((user) => (
+                        <tr key={user.id} className="">
+                            <td>
+                                <span className="record-0">{user.id}</span>
+                            </td>
+                            <td>
+                                <span className="record-1">
+                                    {user.firstName}
+                                </span>
+                            </td>
+                            <td>
+                                <span className="record-1">
+                                    {user.lastName}
+                                </span>
+                            </td>
+                            <td>
+                                <span className="record-2">
+                                    {user.chequeNo}
+                                </span>
+                            </td>
+                            <td>
+                                <span className="record-1">
+                                    {user.bookings_count}
+                                </span>
+                            </td>
+                            <td>
+                                <div className="actions-group">
+                                    <span className="record-3">
+                                        <button
+                                            onClick={() =>
+                                                handleAction(user.id)
+                                            }
+                                        >
+                                            Action
+                                        </button>
                                     </span>
 
-                                        {showSection === user.id && (
-
-                                            <nav className='actions'>
-                                                <li onClick={ () => handleEdit(user.id) }>Edit info</li>
-                                                <li onClick={ () => handleDelete(user.id) }>Delete user</li>
-                                            </nav>
-
-                                        )}
-
-                                </td>
-                            </tr>
-
-                             ))}
-
-                        </table>
-
+                                    {showSection === user.id && (
+                                        <nav className="actions">
+                                            <li>
+                                                <button
+                                                    onClick={() =>
+                                                        handleEdit(user.id)
+                                                    }
+                                                >
+                                                    Edit record
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    onClick={() =>
+                                                        handleDelete(user.id)
+                                                    }
+                                                >
+                                                    Delete user
+                                                </button>
+                                            </li>
+                                        </nav>
+                                    )}
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </table>
             </section>
-        </>
-
-    )
+        </UserLayout>
+    );
 }
