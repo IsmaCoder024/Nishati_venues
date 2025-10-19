@@ -40,8 +40,5 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 # Update Apache config to point to Laravel's public folder
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf
 
-# Make Apache listen on Render's assigned port
-RUN sed -i "s/Listen 80/Listen ${PORT:-80}/" /etc/apache2/ports.conf
-
-# Start Apache
-CMD ["apache2-foreground"]
+# Start Apache on Render's port
+CMD sed -i "s/Listen 80/Listen ${PORT:-80}/" /etc/apache2/ports.conf && apache2-foreground
