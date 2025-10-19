@@ -1,37 +1,44 @@
-# Base PHP image
-FROM php:8.2-fpm-alpine
+# Use the official PHP image with Apache
+FROM php:8.2-apache
 
-# Install system dependencies
-RUN apk add --no-cache \
-    nginx \
-    bash \
-    git \
-    unzip \
-    libzip-dev \
-    oniguruma-dev \
-    icu-dev \
-    zlib-dev \
-    curl \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip bcmath intl
-
-# Install Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# Set working directory
+# Set working directory inside container
 WORKDIR /var/www/html
 
-# Copy Laravel project files into the container
-COPY . .
+# Install system dependencies and PHP extensions required by Laravel
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libzip-dev \
+    zip \
+    curl \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd mbstring zip exif pcntl bcmath pdo pdo_mysql \
+    && a2enmod rewrite
 
-# Copy nginx config into container
-COPY ./conf/nginx/default.conf /etc/nginx/conf.d/default.conf
+# Copy existing application files
+COPY . /var/www/html
 
-# Copy start script into container
-COPY ./scripts/start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
+# Install Composer
+COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
-# Expose HTTP port
+# Install dependencies
+RUN composer install --no-dev --optimize-autoloader
+
+# Set correct permissions for Laravel
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Expose port 80 for Apache
 EXPOSE 80
 
-# Start script (launch nginx + php-fpm)
-CMD ["/usr/local/bin/start.sh"]
+# Set the Apache document root to public directory
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+
+# Update Apache config to point to Laravel's public folder
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf
+
+# Start Apache
+CMD ["apache2-foreground"]
