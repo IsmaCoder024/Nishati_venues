@@ -1,33 +1,35 @@
-# Use PHP + Apache
-FROM php:8.2-apache
+# Use PHP 8.3 with Apache
+FROM php:8.3-apache
 
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git curl zip unzip libpng-dev libonig-dev libxml2-dev libzip-dev \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
+
+# Set working directory
 WORKDIR /var/www/html
 
-# Install PHP extensions & dependencies
-RUN apt-get update && apt-get install -y \
-    git unzip libpng-dev libjpeg-dev libfreetype6-dev libonig-dev libzip-dev zip curl \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mbstring zip exif pcntl bcmath pdo pdo_mysql \
-    && a2enmod rewrite
-
-# Copy app files
-COPY . /var/www/html
-
-# Install Composer
-COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
+# Copy composer files and install dependencies
+COPY composer.json composer.lock ./
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer install --no-dev --optimize-autoloader
+
+# Copy all application files
+COPY . .
+
+# Build frontend with Vite
+RUN npm install && npm run build
 
 # Fix permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Apache config
-RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf \
-    && echo "DirectoryIndex index.php" >> /etc/apache2/apache2.conf \
-    && echo '<Directory /var/www/html/public>\nAllowOverride All\nRequire all granted\n</Directory>' > /etc/apache2/conf-available/laravel.conf \
-    && a2enconf laravel
+# Change Apache root to /public
+RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
-# Expose Render port
-EXPOSE 10000
+EXPOSE 80
 
-# Run Apache on Render port
-CMD sed -i "s/Listen 80/Listen ${PORT:-10000}/" /etc/apache2/ports.conf && apache2-foreground
+CMD ["apache2-foreground"]

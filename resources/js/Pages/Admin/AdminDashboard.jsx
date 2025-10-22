@@ -24,15 +24,22 @@ export default function AdminDashboard(){
                 )}
             </div>
 
+            <div>
+                {flash.venueSuccess && (
+                    <div className="flash-success">
+                        {flash.venueSuccess}
+                    </div>
+                )}
+            </div>
+
         <div className='dashboardContainer'>
             <div className='dashboardCard'>
                 <h3>Actions</h3>
                 <div className='cardItems'>
                     <img src={actionImage} className='dashboardImage' alt='Actions'/>
                     <nav>
-                        <a href= { route ='new'}><li>Add new venue</li></a>
-                        <a href= { route ='delete'}><li>Delete venue</li></a>
-                        <a href= { route ='add'}><li>Update venue</li></a>
+                        <a href= { route ='venuesList'}><li>Venues list</li></a>
+                        <a href= { route ='new'}><li>Add new venue</li></a>                      
                     </nav>
                 </div>
             </div>

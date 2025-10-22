@@ -15,9 +15,10 @@ use Laravel\Pail\ValueObjects\Origin\Console;
 class VenueController extends Controller
 {
     //
-        //creates a venue    
-    public function create(Request $request){
-        $validator = validator($request->all(),[
+    //creates a venue    
+    public function create(Request $request)
+    {
+        $validator = validator($request->all(), [
             'venue_name' => 'required|string|max:30',
             'venue_capacity' => 'required|integer|min:1',
             'floor' => 'required|integer|min:0',
@@ -25,14 +26,12 @@ class VenueController extends Controller
 
         ]);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()
-            ->withErrors($validator)
-            ->withInput()
-            ->with('error','Invalid inputs');
-        }
-
-        else {
+                ->withErrors($validator)
+                ->withInput()
+                ->with('venueError', 'Invalid or redundant information');
+        } else {
 
             Venue::create([
                 'venue_name' => $request->venue_name,
@@ -43,14 +42,16 @@ class VenueController extends Controller
 
         }
 
-        return redirect()->route('admin');
+        return redirect()->route('admin')
+            ->with('venueSuccess', 'New venue added successfully');
 
     }
 
-        //displays available venues
-    public function display(){
+    //displays available venues
+    public function display()
+    {
 
-        $venues = Venue::with('bookings')->get();
+        $venues = Venue::with('bookings')->orderBy('venue_capacity','desc')->get();
 
         return Inertia::render('User/BookingPage', [
             'venues' => $venues
@@ -59,18 +60,30 @@ class VenueController extends Controller
     }
 
 
-        //return the intended venue clicked
-    public function clicked($venueId){
+    //return the intended venue clicked
+    public function clicked($venueId)
+    {
 
         $venue = Venue::findOrFail($venueId);
         return inertia('User/BookSection', ['venue' => $venue]);
 
     }
 
-        //creates a booking
-    public function book(Request $request){
+    //creates a booking
+    public function book(Request $request)
+    {
+        $time_booked = Carbon::parse($request->time_booked);
 
-        $validator = validator( $request->all(), [
+        $end_time = $time_booked->copy()->addMinutes((int) $request->duration);
+
+
+        $conflict = Booking::where('venue_id', $request->venue_id)
+            ->whereDate('date_booked', $request->date_booked)
+            ->whereTime('time_booked', '<', $end_time)
+            ->whereTime('end_time', '>', $time_booked)
+            ->exists();
+
+        $validator = validator($request->all(), [
             'venue_id' => 'required|exists:venues,id',
             'participants' => 'required|integer',
             'subject' => 'required|string|max:100',
@@ -80,31 +93,16 @@ class VenueController extends Controller
 
         ]);
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()
-                            ->withErrors("")
-                            ->with("");
-        }
-        else {
+                ->withInput()
+                ->withErrors("")
+                ->with('bookError', 'Information entered may be invalid. Check and try again');
+        } else if ($conflict) {
 
-            $time_booked = Carbon::parse($request->time_booked);
+            return back()->withErrors('')->with('bookTimeError', 'This venue is booked for the selected time');
 
-            $end_time = $time_booked->copy()->addMinutes((int)$request->duration);
-
-
-            $conflict = Booking::where('venue_id', $request->venue_id)
-                            ->whereDate('date_booked', $request->date_booked)
-                            ->whereTime('time_booked','<', $end_time)
-                            ->whereTime('end_time', '>', $time_booked)
-                            ->exists();
-
-            if($conflict) {
-
-                return back()->withErrors(['venue_id' => 'This venue is booked for the selected time']);
-
-            }
-
-            else {
+        } else {
 
             Booking::create([
                 'venue_id' => $request->venue_id,
@@ -114,17 +112,17 @@ class VenueController extends Controller
                 'date_booked' => $request->date_booked,
                 'time_booked' => $time_booked->format('H:i'),
                 'duration' => $request->duration,
-                'end_time' => $end_time->format('H:i'),                    
+                'end_time' => $end_time->format('H:i'),
             ]);
 
-            return redirect()->route('display')->with('');
-
-            }
+            return redirect()->route('display')->with('bookSuccess', 'Venue reserved successfully');
 
         }
-       
-        
-        
+
+
+
+
+
     }
-    
+
 }

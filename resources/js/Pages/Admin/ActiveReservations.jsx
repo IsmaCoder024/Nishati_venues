@@ -21,11 +21,10 @@ export default function ActiveReservations({ bookings }) {
         <UserLayout
             items={[
                 { label: "Home", href: "home"},
-                { label: "Logout", href: "logout"}
             ]}
         >
             <div className="bookings-container">
-                {bookings.map((booking) => (
+                { bookings.map((booking) => (
                     <div key={booking.id} className="booking-card">
                         <h1>{booking.venue?.venue_name}</h1>
                         <p>Subject : <span className="field-display">{booking.subject}</span> </p>

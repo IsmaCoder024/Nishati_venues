@@ -3,7 +3,7 @@ import "./RegistrationForm.css";
 import UserLayout from "../../Layouts/UserLayout.jsx";
 
 import { useState } from "react";
-import { useForm, usePage } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react"; 
 // import route from 'ziggy-js'
 
 export default function RegistrationForm() {

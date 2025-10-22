@@ -1,31 +1,32 @@
 import UserLayout from "../../Layouts/UserLayout.jsx";
-import "./UsersList.css";
+
+import './VenueList.css';
 
 import { router } from "@inertiajs/react";
 import { useState } from "react";
 import { usePage } from "@inertiajs/react";
 
-export default function UsersList({ users }) {
+export default function VenuesList({ venues }) {
     const { flash } = usePage().props;
 
     const [processing, setProcessing] = useState();
 
     const [showSection, setShowSection] = useState();
 
-    const handleAction = (userId) => {
-        setShowSection((prev) => (prev === userId ? null : userId));
-    };
-
-    const handleDelete = (id) => {
-        if (confirm("Are you sure you want to delete this user?")) {
-            setProcessing(true);
-            router.delete(`/usersList/${id}`);
-        }
+    const handleAction = (venueId) => {
+        setShowSection((prev) => (prev === venueId ? null : venueId));
     };
 
     const handleEdit = (id) => {
-        router.get(`/usersList/${id}/edit`);
+        router.get(`/venuesList/${id}/edit`);
         setProcessing(true);
+    };
+
+    const handleDelete = (id) => {
+        if (confirm("Are you sure you want to delete this venue?")) {
+            setProcessing(true);
+            router.delete(`/venuesList/${id}`);
+        }
     };
 
     return (
@@ -35,9 +36,9 @@ export default function UsersList({ users }) {
             </div>
 
             <div>
-                {flash.updateUserSuccess && (
+                {flash.updateVenueSuccess && (
                     <div className="flash-success">
-                        {flash.updateUserSuccess}
+                        {flash.updateVenueSuccess}
                     </div>
                 )}
             </div>
@@ -46,40 +47,40 @@ export default function UsersList({ users }) {
                 <table>
                     <tr>
                         <th>id</th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>Cheque number</th>
-                        <th>Number of bookings made</th>
+                        <th>Venue name</th>
+                        <th>Venue capacity</th>
+                        <th>Location</th>
+                        <th>Number of past bookings</th>
                         <th>Actions</th>
                     </tr>
 
-                    {users.map((user) => (
-                        <tr key={user.id} className="">
+                    {venues.map((venue) => (
+                        <tr key={venue.id} className="">
                             <td>
-                                <span className="record-0">{user.id}</span>
+                                <span className="record-0">{venue.id}</span>
                             </td>
 
                             <td>
                                 <span className="record-1">
-                                    {user.firstName}
+                                    {venue.venue_name}
                                 </span>
                             </td>
 
                             <td>
                                 <span className="record-1">
-                                    {user.lastName}
-                                </span>
-                            </td>
-
-                            <td>
-                                <span className="record-2">
-                                    {user.chequeNo}
+                                    {venue.venue_capacity}
                                 </span>
                             </td>
 
                             <td>
                                 <span className="record-1">
-                                    {user.bookings_count}
+                                    {venue.floor}-{venue.side}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span className="record-1">
+                                    {venue.bookings_count}
                                 </span>
                             </td>
 
@@ -88,31 +89,31 @@ export default function UsersList({ users }) {
                                     <span className="record-3">
                                         <button
                                             onClick={() =>
-                                                handleAction(user.id)
+                                                handleAction(venue.id)
                                             }
                                         >
                                             Action
                                         </button>
                                     </span>
 
-                                    {showSection === user.id && (
+                                    {showSection === venue.id && (
                                         <nav className="actions">
                                             <li>
                                                 <button
                                                     onClick={() =>
-                                                        handleEdit(user.id)
+                                                        handleEdit(venue.id)
                                                     }
                                                 >
-                                                    Edit record
+                                                    Edit venue record
                                                 </button>
                                             </li>
                                             <li>
                                                 <button
                                                     onClick={() =>
-                                                        handleDelete(user.id)
+                                                        handleDelete(venue.id)
                                                     }
                                                 >
-                                                    Delete user
+                                                    Delete venue
                                                 </button>
                                             </li>
                                         </nav>

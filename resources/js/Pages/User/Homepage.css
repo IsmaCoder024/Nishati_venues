@@ -99,7 +99,7 @@ body {
   justify-content: center;
   gap: 25px;
   padding: 50px;
-  background: #788d7d;
+  background: #d5dcd7;
 }
 
 .card {
@@ -120,6 +120,7 @@ body {
 .cardHead p{
   color: rgb(125, 32, 32);
   font-family: cursive;
+  font-size: 20px;
 }
 
 .cards{

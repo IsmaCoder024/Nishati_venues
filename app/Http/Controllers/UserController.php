@@ -44,7 +44,7 @@ class UserController extends Controller
             ->with('registerError','Check your inputs and try again.');
         }
 
-
+ 
         User::create([
             'firstName'=>$request->firstName,
             'lastName'=>$request->lastName,

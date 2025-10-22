@@ -15,14 +15,16 @@ export default function BookingPage({ venues }) {
 
     return (
         <>
-            <UserLayout
-                items={[
-                    { label: "Home", href: "home" },
-                ]}
-            >
+            <UserLayout items={[{ label: "Home", href: "home" }]}>
                 <div>
                     {flash.logSuccess && (
                         <div className="flash-success">{flash.logSuccess}</div>
+                    )}
+                </div>
+
+                <div>
+                    {flash.bookSuccess && (
+                        <div className="flash-success">{flash.bookSuccess}</div>
                     )}
                 </div>
 
@@ -36,6 +38,13 @@ export default function BookingPage({ venues }) {
                                     <span className="capacity">
                                         {" "}
                                         {venue.venue_capacity}
+                                    </span>
+                                </p>
+                                <p>
+                                    Location :
+                                    <span className="capacity">
+                                        {" "}
+                                        Floor {venue.floor}-{venue.side}
                                     </span>
                                 </p>
                                 <p>

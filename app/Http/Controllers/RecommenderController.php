@@ -9,8 +9,10 @@ class RecommenderController extends Controller
 {
     //
     public function index(){
-        return Inertia::render('/User/Recommendation');
+        return Inertia::render('User/Recommender');
+        
     }
 
 
 }
+ 

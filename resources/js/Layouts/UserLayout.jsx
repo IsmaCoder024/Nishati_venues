@@ -10,7 +10,7 @@ export default function UserLayout({ children, items = [], showLogout = true }) 
         <>
             <div className="Header">
                 <nav className="navbar">
-                    <div className="logo">Venue-Hub</div>
+                    <div className="logo">Nishati-Venues</div>
 
                     <ul className="nav-links">
                         {items.map((item, index) => (
@@ -33,7 +33,7 @@ export default function UserLayout({ children, items = [], showLogout = true }) 
             <main>{children}</main>
 
             <footer>
-                <p>nishati_venue_booking_site_©</p>
+                <p>nishati_venue_booking_site_©_since_2025</p>
             </footer>
         </>
     );

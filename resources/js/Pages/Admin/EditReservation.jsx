@@ -32,8 +32,7 @@ export default function EditReservation({ booking }){
     return (
         <UserLayout
             items={[
-                { label: "Home", href: "home"},
-                { label: "Logout", href: "logout"}
+                { label: "Home", href: "home"}
             ]}    
         >
             <div className="edit-container">

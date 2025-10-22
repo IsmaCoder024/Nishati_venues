@@ -28,9 +28,25 @@ class AppServiceProvider extends ServiceProvider
                 return [
                     'registerSuccess' => session('registerSuccess'),
                     'registerError' => session('registerError'),
+
                     'logSuccess' => session('logSuccess'),
                     'logError' => session('logError'),
-                    'notAdminError' => session('notAdminError')
+
+                    'notAdminError' => session('notAdminError'),
+
+                    'venueSuccess' => session('venueSuccess'),
+                    'venueError' => session('venueError'),
+                    
+                    'updateUserSuccess' => session('updateUserSuccess'),
+                    'updateUserError' => session('updateUserError'),
+
+                    'updateVenueSuccess' => session('updateVenueSuccess'),
+                    'updateVenueError' => session('updateVenueError'),
+
+                    'bookSuccess' => session('bookSuccess'),
+                    'bookError' => session('bookError'),
+                    'bookTimeError' => session('bookTimeError'),
+                    
                 ];
             },
         ]);

@@ -37,7 +37,15 @@ Route::get('/home',
     [UserController::class, 'homepage']
 )->name('home');
 
+    //About
+Route::get('/about', function(){
+    return Inertia::render('About');
+})->name('about');
 
+    //Contacts
+Route::get('/contacts', function(){
+    return Inertia::render('Contacts');
+})->name('contacts');
     //ADMIN ROUTES
 
 Route::middleware(['auth', 'admin'])->group(function(){
@@ -46,6 +54,7 @@ Route::middleware(['auth', 'admin'])->group(function(){
 Route::get('/admin', function(){
     return Inertia::render('Admin/AdminDashboard');
 })->name('admin');
+
 
 //Users List
 Route::get('/usersList',
@@ -68,6 +77,7 @@ Route::put('/usersList/{id}',
 )->name('usersList.update');
 
 
+
 //Add new venue
 Route::get('/new', function(){
     return Inertia::render('Admin/NewVenue');
@@ -77,15 +87,26 @@ Route::post('/new',
     [VenueController::class, 'create']
 )->name('new');
 
-//Update venue
-Route::get('/update', function(){
-    return Inertia::render('Admin/UpdateVenue');
-})->name('update');
+//Venues list
+Route::get('/venuesList', 
+    [AdminController::class, 'venuesList']
+)->name('venuesList');
 
-//Delete venue
-Route::get('/delete', function(){
-    return Inertia::render('Admin/DeleteVenue');
-})->name('delete');
+//handle venue delete
+Route::delete('/venuesList/{id}',
+    [AdminController::class, 'deleteVenue']
+)->name('venuesList.delete');
+
+//venue edit page
+Route::get('/venuesList/{id}/edit',
+     [AdminController::class,'editVenue']
+)->name('venuesList.edit');
+
+//handle user info edit
+Route::put('/venuesList/{id}',
+     [AdminController::class,'updateVenue']
+)->name('venuesList.update');
+
 
 //Reservations
 Route::get('/reservations',
@@ -150,11 +171,11 @@ Route::post('/book/store',
     [VenueController::class, 'book']
 )->name('book.store');
 
+Route::get( '/recommender',
+    [RecommenderController::class, 'index']
+)->name('recommender');
+
 });
 
-//Recommendation page
-Route::get('/recommendation',
-    [RecommenderController::class, 'index']
-)->name('recommendation');
 
 // require __DIR__.'/auth.php';

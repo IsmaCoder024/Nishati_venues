@@ -6,9 +6,9 @@ body{
   color: green;
   position: absolute;
   justify-self: center;
-  background: rgb(232, 228, 228);
+  background: inherit;
   padding: 1px 4px;
-  animation: fadeOut 4s forwards;
+  animation: fadeOut 8s forwards;
 }
 
 @keyframes fadeOut {
@@ -27,9 +27,9 @@ body{
   color: red;
   position: absolute;
   justify-self: center;
-  background: rgb(232, 228, 228);
+  background: inherit;
   padding: 1px 4px;
-  animation: fadeOut 4s forwards;
+  animation: fadeOut 8s forwards;
 }
 
 @keyframes fadeOut {

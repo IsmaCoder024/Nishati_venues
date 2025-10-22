@@ -1,0 +1,100 @@
+
+body{
+    background: rgb(191, 182, 191);
+
+}
+
+label {
+  font-size: 18px;
+  margin-bottom: 6px;
+  color: #372424;
+}
+
+small{
+  font-size: 12px;
+  color: red;
+  font-style: italic;
+}
+   
+.edit-container {
+  max-width: 600px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(22, 8, 219, 10);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.edit-container h1 {
+  margin-bottom: 20px;
+  font-size: 25px;  
+  color: #6e1365;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.edit-form {
+  display: flexbox;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-date-group{
+    display: flexbox;
+    margin-bottom: 20px;
+}
+
+.form-date-group label{
+    margin-inline: 5px;
+}
+
+.form-group input, select, textarea {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+.form-date-group input{
+    padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+.form-check {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.update-btn {
+  grid-column: span 2;
+  padding: 10px;
+  background: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+  align-self: center;
+  transition: background 0.2s;
+}
+
+.update-btn:hover {
+  background: #005fa3;
+}
+
+
