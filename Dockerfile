@@ -37,4 +37,5 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+# Run migrations before Apache starts
+CMD php artisan migrate --force && apache2-foreground
