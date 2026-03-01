@@ -1,0 +1,63 @@
+body {
+    align-content: center;
+}
+.form-container {
+    max-width: 600px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 10px 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(22, 8, 219, 10);
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+}
+
+.form {
+    border: none;
+    display: flexbox;
+    padding: 10px 5px;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-input {
+    justify-self: left;
+    border: none;
+    
+}
+
+.form-input label {
+    font-size: 18px;
+    margin-bottom: 6px;
+    color: #372424;
+}
+
+.form-input input {
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+.radio-buttons{
+    margin: 8px;
+    font-weight: 600;
+    color: #81096b;
+}
+
+.radio-buttons input{
+    margin-right: 20px;
+    margin-left: 5px;
+}
+
+.submit{
+    grid-column: span 2;
+  padding: 1px 19px;
+  background: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+  align-self: center;
+  transition: background 0.2s;
+}

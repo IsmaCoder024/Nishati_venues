@@ -1,5 +1,47 @@
 body{
-    background-color: olive;
+    background-color: #f4f4f9;
+}
+
+.flash-success{
+  color: green;
+  position: absolute;
+  justify-self: center;
+  background: inherit;
+  padding: 1px 4px;
+  animation: fadeOut 8s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 2;
+  }
+  80% {
+    opacity: 2;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.flash-error{
+  color: red;
+  position: absolute;
+  justify-self: center;
+  background: inherit;
+  padding: 1px 4px;
+  animation: fadeOut 8s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .navbar {

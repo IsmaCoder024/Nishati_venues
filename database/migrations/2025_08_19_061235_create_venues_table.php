@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('venues', function (Blueprint $table) {
             $table->id();
-            $table->string('venue_name');
-            $table->string('venue_capacity');
+            $table->string('venue_name')->unique();
+            $table->integer('venue_capacity');
             $table->integer('floor');
-            $table->enum('side', ['left','right']);
+            $table->enum('side', ['Left','Right', 'Centre']);
             $table->timestamps();
         });
     }
